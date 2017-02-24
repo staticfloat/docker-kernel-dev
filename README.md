@@ -1,4 +1,4 @@
-# Docker kernel dev env
+# Docker kernel dev environment
 
 Using the magic of virtualization, we will experiment with kernel features in `docker`.
 
@@ -7,3 +7,7 @@ Using the magic of virtualization, we will experiment with kernel features in `d
 * `make run` will launch `kvm`/`qemu-system-x86_64` on the generated files
 
 This was designed so that I could try out kernel development for a bit, specifically for the use case of trying to fix `inotify` issues on `overlay2` filesystems.
+
+## Tips
+
+* If `debootstrap` keeps failing, try installing the `debian-archive-keyring` package

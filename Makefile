@@ -54,7 +54,7 @@ bzImage: src/linux/.config
 
 
 src/debootstrap/bin/bash:
-	@sudo debootstrap --include openssh-server,curl jessie src/debootstrap || (echo "This often fails with download errors; try just running it again and again until all the downloads go through"; false)
+	@sudo debootstrap --include openssh-server,curl jessie src/debootstrap
 debootstrap: src/debootstrap/bin/bash
 
 src/debootstrap/.patched: src/debootstrap/bin/bash
@@ -85,6 +85,7 @@ run: bzImage root.img
 		-mon chardev=stdio -append 'root=/dev/vda console=hvc0' \
 		-device virtio-serial-pci -device virtconsole,chardev=stdio \
 		-display none \
+		-m 1024 \
 		-net nic,model=virtio,macaddr=52:54:00:12:34:56 \
 		-net user,hostfwd=tcp:127.0.0.1:4444-:22
  
@@ -98,4 +99,4 @@ clean-config:
 	@$(MAKE) src/linux/.config
 clean:
 	rm -rf src
-
+	rm -f bzImage root.img
